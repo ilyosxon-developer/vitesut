@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
-import Login from './pages/auth/Login';
-import DashboardLayout from './components/layouts/DashboardLayout';
+import Login from '@pages/auth/Login';
+import DashboardLayout from '@components/layouts/DashboardLayout';
 
 
 const queryClient = new QueryClient();
@@ -13,16 +13,11 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Router>
           <Routes>
-            {/* Asosiy sahifa sifatida Login */}
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />
             <Route
               path="/*"
-              element={
-                
-                  <DashboardLayout />
-                
-              }
+              element={<DashboardLayout />}
             />
           </Routes>
         </Router>

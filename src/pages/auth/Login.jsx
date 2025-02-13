@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'; // CSS loader uchun stil
+import { httpRequest } from '@services/axios.service';
+import { appConfig } from '@config'
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -15,19 +16,11 @@ function Login() {
     setIsLoading(true); // Loaderni yoqish
 
     try {
-      const token = localStorage.getItem('access_token'); // Tokenni olish
-      const response = await axios.post('https://crmapimilk.pythonanywhere.com/api/token/', {
-        headers: {
-          'Authorization': `JWT ${token}`, // Authorization headeriga tokenni qo'shish
-          'Content-Type': 'application/json',
-        },
-        username: username,
-        password: password,
-      });
+      const data = await httpRequest.create('/api/token/', { username, password })
 
-      const { access, refresh } = response.data;
-      localStorage.setItem('access_token', access);
-      localStorage.setItem('refresh_token', refresh);
+      const { access, refresh } = data;
+      localStorage.setItem(appConfig.storage.ACCESS_TOKEN, access);
+      localStorage.setItem(appConfig.storage.REFRESH_TOKEN, refresh);
       localStorage.setItem('username', username);
 
       navigate('/dashboard');

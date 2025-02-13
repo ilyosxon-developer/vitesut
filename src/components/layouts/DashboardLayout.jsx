@@ -1,4 +1,4 @@
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Users, Package, ShoppingCart, Train, FileText, Settings, LogOut, Menu } from 'lucide-react';
 import React, { useState } from 'react';
 import DashboardPage from '../../pages/dashboard/DashboardPage';
@@ -11,6 +11,12 @@ import UserManagement from '../../pages/users/getUser';
 import './DashboardLayout.css'
 import OmborIndex from '../../pages/ombor/ombor';
 import OmborHisoboti from '../../pages/ombor/hisobot';
+
+import { httpRequest } from '@services/axios.service';
+import { storage } from '@utils'
+import { appConfig } from '@config'
+import { Button } from 'react-bootstrap';
+
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Users', href: '/users', icon: Users },
@@ -23,7 +29,16 @@ const navigation = [
 
 export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate()
   const location = useLocation();
+
+  const handleLogout = () => {
+    httpRequest.create('/logout/').then(res => {
+      storage.remove(appConfig.storage.ACCESS_TOKEN)
+      storage.remove(appConfig.storage.REFRESH_TOKEN)
+      navigate('/login')
+    }).catch(error => console.log({ error }))
+  }
 
   return (
     <div className="d-flex flex-column flex-md-row min-vh-100">
@@ -43,9 +58,8 @@ export default function DashboardLayout() {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`nav-link d-flex align-items-center px-3 py-2 rounded ${
-                  location.pathname === item.href ? 'bg-primary text-white' : 'text-dark'
-                }`}
+                className={`nav-link d-flex align-items-center px-3 py-2 rounded ${location.pathname === item.href ? 'bg-primary text-white' : 'text-dark'
+                  }`}
                 onClick={() => setSidebarOpen(false)}
               >
                 <item.icon className="me-2" size={20} />
@@ -80,9 +94,8 @@ export default function DashboardLayout() {
             <Link
               key={item.name}
               to={item.href}
-              className={`nav-link d-flex align-items-center px-3 py-2 rounded ${
-                location.pathname === item.href ? 'bg-primary text-white' : 'text-dark'
-              }`}
+              className={`nav-link d-flex align-items-center px-3 py-2 rounded ${location.pathname === item.href ? 'bg-primary text-white' : 'text-dark'
+                }`}
             >
               <item.icon className="me-2" size={20} />
               {item.name}
@@ -91,8 +104,8 @@ export default function DashboardLayout() {
         </nav>
         <div className="p-3 border-top">
           <button className="btn btn-outline-danger w-100 d-flex align-items-center">
-            <LogOut className="me-2" size={20}  />
-            <Link to="/login"> Logout</Link>
+            <LogOut className="me-2" size={20} />
+            <Button onClick={handleLogout}> Logout</Button>
           </button>
         </div>
       </div>
@@ -100,20 +113,19 @@ export default function DashboardLayout() {
       {/* Main Content */}
       <div className="flex-grow-1 p-3 bg-light w-100" style={{ maxWidth: '100%' }}>
         <Routes>
-        <Route path="/" element={<DashboardPage />} />   
+          <Route path="/" element={<DashboardPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/users" element={<UserManagement />} />
           <Route path="/products" element={<OmborIndex />} />
-          
+
           <Route path="/purchase" element={<PurchasePage />} />
 
           <Route path="/invoice" element={<OmborHisoboti />} />
           <Route path="/settings" element={<SettingsPage />} />
-          <Route path='/login' element={<Login/>}/>
+          <Route path='/login' element={<Login />} />
         </Routes>
       </div>
     </div>
   );
 }
 
-  

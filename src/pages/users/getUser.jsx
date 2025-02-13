@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+
+import { httpRequest } from "@services/axios.service";
 
 function UsersComponent() {
   const [data, setData] = useState([]);
@@ -10,10 +12,20 @@ function UsersComponent() {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    // Tokenni global ravishda sozlash
-    axios.defaults.headers.common["Authorization"] = `Bearer YOUR_TOKEN_HERE`;
+  const fetchUsers = async () => {
+    setLoading(true)
+    try {
+      const res = await httpRequest.get('/users/')
+      setData(res.data.results);
+    } catch (error) {
+      console.log({ error })
+      setMessage("Foydalanuvchilarni olishda xatolik yuz berdi.");
+    } finally {
+      setLoading(false)
+    }
+  }
 
+  useEffect(() => {
     fetchUsers();
   }, []);
 
@@ -24,21 +36,6 @@ function UsersComponent() {
       return () => clearTimeout(timer);
     }
   }, [message]);
-
-  const fetchUsers = () => {
-    setLoading(true);
-    axios
-      .get("https://crmapimilk.pythonanywhere.com/users/") 
-      .then((response) => {
-        setData(response.data.results);
-      })
-      .catch((error) => {
-        setMessage("Foydalanuvchilarni olishda xatolik yuz berdi.");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
 
   const addUser = () => {
     if (!newUser.username.trim() || !newUser.password.trim()) {
@@ -74,7 +71,7 @@ function UsersComponent() {
   const startEditing = (user) => {
     setEditUser(user);
     console.log(user);
-    
+
   };
 
   const saveEdit = () => {
@@ -107,7 +104,7 @@ function UsersComponent() {
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Foydalanuvchilar</h1>
-     
+
 
       {/* Xabar */}
       {message && (
