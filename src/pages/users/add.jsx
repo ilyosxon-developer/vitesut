@@ -1,52 +1,92 @@
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Modal, Button, Form } from 'react-bootstrap';
 
-const UserAddModal = ({ show, handleClose, handleAddUser }) => {
+export default function AddUserModal() {
+  const [show, setShow] = useState(false);
+  const [userTypes, setUserTypes] = useState([]);
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone_number: "",
-    user_type: "Admin",
+    username: '',
+    password: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    user_type: ''
   });
+
+  useEffect(() => {
+    axios.get('https://crmapimilk.pythonanywhere.com/api/user_types/')
+      .then(response => setUserTypes(response.data))
+      .catch(error => console.error('Error fetching user types:', error));
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleAddUser(formData);
+  const handleSubmit = () => {
+    axios.post('https://crmapimilk.pythonanywhere.com/api/users/', formData)
+      .then(() => { setShow(false); window.location.reload(); })
+      .catch(error => console.error('Error adding user:', error));
   };
 
   return (
-    <div className={`modal fade ${show ? "show d-block" : ""}`} tabIndex="-1">
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Foydalanuvchi qo‘shish</h5>
-            <button type="button" className="btn-close" onClick={handleClose}></button>
-          </div>
-          <div className="modal-body">
-            <form onSubmit={handleSubmit}>
-              <input type="text" className="form-control mb-2" name="username" placeholder="Username" onChange={handleChange} required />
-              <input type="password" className="form-control mb-2" name="password" placeholder="Password" onChange={handleChange} required />
-              <input type="text" className="form-control mb-2" name="first_name" placeholder="First Name" onChange={handleChange} />
-              <input type="text" className="form-control mb-2" name="last_name" placeholder="Last Name" onChange={handleChange} />
-              <input type="email" className="form-control mb-2" name="email" placeholder="Email Address" onChange={handleChange} />
-              <input type="text" className="form-control mb-2" name="phone_number" placeholder="Phone Number" onChange={handleChange} />
-              <select className="form-control mb-2" name="user_type" onChange={handleChange}>
-                <option value="Admin">Admin</option>
-                <option value="Klient">Klient</option>
-              </select>
-              <button type="submit" className="btn btn-primary w-100">Qo‘shish</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+    <>
+      <Button variant="primary" onClick={() => setShow(true)}>
+        Add User
+      </Button>
 
-export default UserAddModal;
+      <Modal show={show} onHide={() => setShow(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Add New User</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label>Username</Form.Label>
+              <Form.Control name="username" onChange={handleChange} required />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" name="password" onChange={handleChange} required />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>First Name</Form.Label>
+              <Form.Control name="first_name" onChange={handleChange} />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control name="last_name" onChange={handleChange} />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" name="email" onChange={handleChange} />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Phone</Form.Label>
+              <Form.Control name="phone" onChange={handleChange} />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>User Type</Form.Label>
+              <Form.Control as="select" name="user_type" onChange={handleChange} required>
+                <option value="">Select User Type</option>
+                {userTypes.map(type => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShow(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSubmit}>
+            Add User
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}

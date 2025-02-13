@@ -103,10 +103,10 @@ export default function DashboardLayout() {
           ))}
         </nav>
         <div className="p-3 border-top">
-          <button className="btn btn-outline-danger w-100 d-flex align-items-center">
+          <Button onClick={handleLogout} className="btn btn-outline-danger w-100 d-flex align-items-center">
             <LogOut className="me-2" size={20} />
-            <Button onClick={handleLogout}> Logout</Button>
-          </button>
+            <span> Logout</span>
+          </Button>
         </div>
       </div>
 

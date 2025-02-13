@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { httpRequest } from "@services/axios.service";
 
+import AddUserForm from "./add";
 function UsersComponent() {
   const [data, setData] = useState([]);
   const [newUser, setNewUser] = useState({ username: "", password: "" });
@@ -11,12 +12,12 @@ function UsersComponent() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
+  const [showAddForm, setShowAddForm] = useState(false);
   const fetchUsers = async () => {
     setLoading(true)
     try {
-      const res = await httpRequest.get('/users/')
-      setData(res.data.results);
+      const data = await httpRequest.get('/users/')
+      setData(data.results);
     } catch (error) {
       console.log({ error })
       setMessage("Foydalanuvchilarni olishda xatolik yuz berdi.");
@@ -104,8 +105,8 @@ function UsersComponent() {
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Foydalanuvchilar</h1>
-
-
+     
+<AddUserForm/>
       {/* Xabar */}
       {message && (
         <div className="alert alert-info text-center" role="alert">
@@ -114,11 +115,8 @@ function UsersComponent() {
       )}
 
       {/* Yangi foydalanuvchi qo'shish tugmasi */}
-      <div className="mb-4 text-end">
-        <button className="btn btn-success" onClick={() => setShowModal(true)}>
-          + Add
-        </button>
-      </div>
+      <button onClick={() => setShowAddForm(true)} variant="primary">Add</button>
+      {showAddForm && <AddUserForm onClose={() => setShowAddForm(false)} />}
 
       {/* Loader yoki jadval */}
       {loading ? (
@@ -230,6 +228,43 @@ function UsersComponent() {
                   }
                   placeholder="Parol kiriting"
                 />
+                 <input
+                  type="first_name"
+                  className="form-control"
+                  value={newUser.first_name}
+                  onChange={(e) =>
+                    setNewUser({ ...newUser, first_name: e.target.value })
+                  }
+                  placeholder="Ism: kiriting"
+                />
+                 <input
+                  type="last_name"
+                  className="form-control"
+                  value={newUser.last_name}
+                  onChange={(e) =>
+                    setNewUser({ ...newUser, last_name: e.target.value })
+                  }
+                  placeholder="Familiya: kiriting"
+                />
+                 <input
+                  type="email"
+                  className="form-control"
+                  value={newUser.email}
+                  onChange={(e) =>
+                    setNewUser({ ...newUser, email: e.target.value })
+                  }
+                  placeholder="Email: kiriting"
+                />
+                 <input
+                  type="number"
+                  className="form-control"
+                  value={newUser.phone_number}
+                  onChange={(e) =>
+                    setNewUser({ ...newUser, phone_number: e.target.value })
+                  }
+                  placeholder="Telefon raqam: kiriting"
+                />
+                 
               </div>
               <div className="modal-footer">
                 <button

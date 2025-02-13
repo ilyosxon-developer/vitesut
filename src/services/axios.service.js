@@ -6,10 +6,10 @@ axios.defaults.baseURL = import.meta.env.VITE_REACT_APP_BASE_URL
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 const token = storage.get(appConfig.storage.ACCESS_TOKEN)
-if (token) axios.defaults.headers.common.Authorization = `Bearer ${token}`
+if (token) axios.defaults.headers.common.Authorization = `JWT ${token}`
 
 export const setAuthorization = (token) => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`
+  axios.defaults.headers.common.Authorization = `JWT ${token}`
 }
 
 axios.interceptors.response.use(
