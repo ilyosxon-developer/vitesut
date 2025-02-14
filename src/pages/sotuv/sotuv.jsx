@@ -5,10 +5,10 @@
     createBirlik,
     deleteBirlik,
     updateBirlik,
-  } from "../../lib/purchase"; // API funksiyalarini import qilish
+  } from "../../lib/sotuv"; // API funksiyalarini import qilish
   // API funksiyalarini import qilamiz
 
-  function Purchase() {
+  function Sotuv() {
     const [data, setData] = useState([]);
     const [newBirlik, setNewBirlik] = useState("");
     const [editBirlik, setEditBirlik] = useState(null);
@@ -93,7 +93,7 @@
 
     return (
       <div className="container mt-5">
-        <h1 className="text-center mb-4">Birliklar</h1>
+        <h1 className="text-center mb-4">Sotuvlar</h1>
 
         {/* Xabar */}
         {message && (
@@ -114,10 +114,11 @@
           <thead className="table-light">
             <tr>
               <th>ID</th>
-              <th>Ombor</th>
               <th>Sana</th>
-              <th>Yetkazib beruvchi</th>
-              <th>Status</th>
+              <th>Summa</th>
+              <th>Kimdan</th>
+              <th>Qayerga</th>
+              <th>Oluvchi</th>
               <th className="text-center">Action</th>
             </tr>
           </thead>
@@ -136,23 +137,7 @@
                       }
                     />
                   ) : (
-                    birlik.name
-                    
-                  )}
-                </td>
-                <td>
-                  {editBirlik && editBirlik.id === birlik.id ? (
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={editBirlik.name}
-                      onChange={(e) =>
-                        setEditBirlik({ ...editBirlik, name: e.target.value })
-                      }
-                    />
-                  ) : (
                     birlik.sana
-                    
                   )}
                 </td>
                 <td>
@@ -166,8 +151,7 @@
                       }
                     />
                   ) : (
-                    birlik.yetkazib_beruvchi
-                    
+                    birlik.total_sum
                   )}
                 </td>
                 <td>
@@ -181,8 +165,35 @@
                       }
                     />
                   ) : (
-                    birlik.status
-                    
+                    birlik.from_ombor
+                  )}
+                </td>
+                <td>
+                  {editBirlik && editBirlik.id === birlik.id ? (
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={editBirlik.name}
+                      onChange={(e) =>
+                        setEditBirlik({ ...editBirlik, name: e.target.value })
+                      }
+                    />
+                  ) : (
+                    birlik.to_ombor
+                  )}
+                </td>
+                <td>
+                  {editBirlik && editBirlik.id === birlik.id ? (
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={editBirlik.name}
+                      onChange={(e) =>
+                        setEditBirlik({ ...editBirlik, name: e.target.value })
+                      }
+                    />
+                  ) : (
+                    birlik.sotib_oluvchi
                   )}
                 </td>
                 <td className="text-center">
@@ -225,7 +236,6 @@
             ))}
           </tbody>
         </table>
-        
 
         {/* Modal oynasi - Yangi qo'shish */}
         {showModal && (
@@ -308,4 +318,4 @@
     );
   }
 
-  export default Purchase;
+  export default Sotuv;

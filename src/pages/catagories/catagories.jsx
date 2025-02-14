@@ -1,14 +1,13 @@
-// BirliklarComponentt.jsx
 import React, { useState, useEffect } from "react";
 import {
   fetchBirliklar,
   createBirlik,
   deleteBirlik,
   updateBirlik,
-} from "../../../lib/unity"; // API funksiyalarini import qilish
+} from "../../lib/cates.js"; // API funksiyalarini import qilish
  // API funksiyalarini import qilamiz
 
-function Birlik() {
+function Catagoriyalar() {
   const [data, setData] = useState([]);
   const [newBirlik, setNewBirlik] = useState("");
   const [editBirlik, setEditBirlik] = useState(null);
@@ -93,7 +92,7 @@ function Birlik() {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Birliklar</h1>
+      <h1 className="text-center mb-4">Catagoriyalar</h1>
 
       {/* Xabar */}
       {message && (
@@ -102,7 +101,7 @@ function Birlik() {
         </div>
       )}
 
-      {/* Yangi birlik qo'shish tugmasi */}
+      {/* Yangi Catagoriya qo'shish tugmasi */}
       <div className="mb-4 text-end">
         <button className="btn btn-success" onClick={() => setShowModal(true)}>
           + Add
@@ -258,4 +257,4 @@ function Birlik() {
   );
 }
 
-export default Birlik;
+export default Catagoriyalar;

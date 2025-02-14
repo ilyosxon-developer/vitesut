@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import DeleteUser from './deleteUser'
 import { httpRequest } from "@services/axios.service";
 
 import AddUserForm from "./add";
@@ -105,8 +105,6 @@ function UsersComponent() {
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Foydalanuvchilar</h1>
-     
-<AddUserForm/>
       {/* Xabar */}
       {message && (
         <div className="alert alert-info text-center" role="alert">
@@ -115,8 +113,7 @@ function UsersComponent() {
       )}
 
       {/* Yangi foydalanuvchi qo'shish tugmasi */}
-      <button onClick={() => setShowAddForm(true)} variant="primary">Add</button>
-      {showAddForm && <AddUserForm onClose={() => setShowAddForm(false)} />}
+      <AddUserForm />
 
       {/* Loader yoki jadval */}
       {loading ? (
@@ -127,6 +124,11 @@ function UsersComponent() {
             <tr>
               <th>ID</th>
               <th>Username</th>
+              <th>Email</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Number</th>
+              <th>User type</th>
               <th className="text-center">Action</th>
             </tr>
           </thead>
@@ -148,10 +150,80 @@ function UsersComponent() {
                     user.username
                   )}
                 </td>
+                <td>
+                  {editUser && editUser.id === user.id ? (
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={editUser.username}
+                      onChange={(e) =>
+                        setEditUser({ ...editUser, username: e.target.value })
+                      }
+                    />
+                  ) : (
+                    user.email
+                  )}
+                </td>
+                <td>
+                  {editUser && editUser.id === user.id ? (
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={editUser.username}
+                      onChange={(e) =>
+                        setEditUser({ ...editUser, username: e.target.value })
+                      }
+                    />
+                  ) : (
+                    user.first_name
+                  )}
+                </td>
+                <td>
+                  {editUser && editUser.id === user.id ? (
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={editUser.username}
+                      onChange={(e) =>
+                        setEditUser({ ...editUser, username: e.target.value })
+                      }
+                    />
+                  ) : (
+                    user.last_name
+                  )}
+                </td>
+                <td>
+                  {editUser && editUser.id === user.id ? (
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={editUser.username}
+                      onChange={(e) =>
+                        setEditUser({ ...editUser, username: e.target.value })
+                      }
+                    />
+                  ) : (
+                    user.phone_number
+                  )}
+                </td>
+                <td>
+                  {editUser && editUser.id === user.id ? (
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={editUser.username}
+                      onChange={(e) =>
+                        setEditUser({ ...editUser, username: e.target.value })
+                      }
+                    />
+                  ) : (
+                    user.user_type
+                  )}
+                </td>
                 <td className="text-center">
                   {editUser && editUser.id === user.id ? (
                     <>
-                      <button
+                      {/* <button
                         className="btn btn-success me-2"
                         onClick={saveEdit}
                       >
@@ -162,22 +234,23 @@ function UsersComponent() {
                         onClick={() => setEditUser(null)}
                       >
                         Cancel
-                      </button>
+                      </button> */}
                     </>
                   ) : (
                     <>
-                      <button
+                      {/* <button
                         className="btn btn-warning me-2"
                         onClick={() => startEditing(user)}
                       >
                         Edit
-                      </button>
-                      <button
+                      </button> */}
+                      {/* <button
                         className="btn btn-primary me-2"
                         onClick={() => viewDetails(user)}
                       >
                         View
-                      </button>
+                      </button> */}
+                      {/* <DeleteUser/> */}
                       <button
                         className="btn btn-danger"
                         onClick={() => deleteUser(user.id)}
@@ -202,7 +275,7 @@ function UsersComponent() {
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Yangi Foydalanuvchi Qo'shish</h5>
+                <h5 className="modal-title">Yangi Foydalanuvchi Qo'shishhh</h5>
                 <button
                   type="button"
                   className="btn-close"
@@ -282,42 +355,7 @@ function UsersComponent() {
         </div>
       )}
 
-      {/* Modal oynasi - View */}
-      {viewUser && (
-        <div
-          className="modal fade show"
-          style={{ display: "block", background: "rgba(0, 0, 0, 0.5)" }}
-        >
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Foydalanuvchi Tafsilotlari</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={() => setViewUser(null)}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <p>
-                  <strong>ID:</strong> {viewUser.id}
-                </p>
-                <p>
-                  <strong>Username:</strong> {viewUser.username}
-                </p>
-              </div>
-              <div className="modal-footer">
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setViewUser(null)}
-                >
-                  Yopish
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      
     </div>
   );
 }

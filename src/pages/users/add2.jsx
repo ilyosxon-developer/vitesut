@@ -4,7 +4,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 
 export default function AddUserModal() {
   const [show, setShow] = useState(false);
-  const [userTypes, setUserTypes] = useState([]);
+  const userTypes = ['admin', 'diller', 'client'];
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -14,13 +14,8 @@ export default function AddUserModal() {
     phone: '',
     user_type: ''
   });
-
-  // useEffect(() => {
-  //   axios.get('https://crmapimilk.pythonanywhere.com/api/user_types/')
-  //     .then(response => setUserTypes(response.data))
-  //     .catch(error => console.error('Error fetching user types:', error));
-  // }, []);
-
+  
+ 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -67,7 +62,7 @@ export default function AddUserModal() {
               <Form.Label>Phone</Form.Label>
               <Form.Control name="phone" onChange={handleChange} />
             </Form.Group>
-            <Form.Group>
+             <Form.Group>
               <Form.Label>User Type</Form.Label>
               <Form.Control as="select" name="user_type" onChange={handleChange} required>
                 <option value="">Select User Type</option>

@@ -5,10 +5,10 @@
     createBirlik,
     deleteBirlik,
     updateBirlik,
-  } from "../../lib/purchase"; // API funksiyalarini import qilish
+  } from "../../lib/unity"; // API funksiyalarini import qilish
   // API funksiyalarini import qilamiz
 
-  function Purchase() {
+  function Birlik() {
     const [data, setData] = useState([]);
     const [newBirlik, setNewBirlik] = useState("");
     const [editBirlik, setEditBirlik] = useState(null);
@@ -114,10 +114,7 @@
           <thead className="table-light">
             <tr>
               <th>ID</th>
-              <th>Ombor</th>
-              <th>Sana</th>
-              <th>Yetkazib beruvchi</th>
-              <th>Status</th>
+              <th>Name</th>
               <th className="text-center">Action</th>
             </tr>
           </thead>
@@ -137,52 +134,6 @@
                     />
                   ) : (
                     birlik.name
-                    
-                  )}
-                </td>
-                <td>
-                  {editBirlik && editBirlik.id === birlik.id ? (
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={editBirlik.name}
-                      onChange={(e) =>
-                        setEditBirlik({ ...editBirlik, name: e.target.value })
-                      }
-                    />
-                  ) : (
-                    birlik.sana
-                    
-                  )}
-                </td>
-                <td>
-                  {editBirlik && editBirlik.id === birlik.id ? (
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={editBirlik.name}
-                      onChange={(e) =>
-                        setEditBirlik({ ...editBirlik, name: e.target.value })
-                      }
-                    />
-                  ) : (
-                    birlik.yetkazib_beruvchi
-                    
-                  )}
-                </td>
-                <td>
-                  {editBirlik && editBirlik.id === birlik.id ? (
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={editBirlik.name}
-                      onChange={(e) =>
-                        setEditBirlik({ ...editBirlik, name: e.target.value })
-                      }
-                    />
-                  ) : (
-                    birlik.status
-                    
                   )}
                 </td>
                 <td className="text-center">
@@ -225,7 +176,6 @@
             ))}
           </tbody>
         </table>
-        
 
         {/* Modal oynasi - Yangi qo'shish */}
         {showModal && (
@@ -308,4 +258,4 @@
     );
   }
 
-  export default Purchase;
+  export default Birlik;

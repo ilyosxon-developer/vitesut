@@ -2,29 +2,32 @@ import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
 import { LayoutDashboard, Users, Package, ShoppingCart, Train, FileText, Settings, LogOut, Menu } from 'lucide-react';
 import React, { useState } from 'react';
 import DashboardPage from '../../pages/dashboard/DashboardPage';
-import PurchasePage from '../../pages/Purchase'
+import Purchase from '../../pages/purchase/purchase';
 import InvoicePage from '../../pages/Invoice'
-import SettingsPage from '../../pages/Settings';
+import Birlik from '../../pages/birliklar/birlik';
 import Login from '../../pages/auth/Login';
-import Categories from '../../pages/mahsulotlar/catagories/catagories';
+import Categories from '../../pages/catagories/catagories';
 import UserManagement from '../../pages/users/getUser';
 import './DashboardLayout.css'
+import Sotuv from '../../pages/sotuv/sotuv';
 import OmborIndex from '../../pages/ombor/ombor';
 import OmborHisoboti from '../../pages/ombor/hisobot';
-
+import Products from '../../pages/mahsulotlar/mahsulotlar';
+import Ombor  from '../../pages/ombor/ombor';
 import { httpRequest } from '@services/axios.service';
 import { storage } from '@utils'
 import { appConfig } from '@config'
 import { Button } from 'react-bootstrap';
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Users', href: '/users', icon: Users },
-  { name: 'Products', href: '/products', icon: Package },
+  { name: 'Bosh Sahifa', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'Foydalanuvchilar', href: '/users', icon: Users },
   { name: 'Birliklar', href: '/birliklar', icon: Package },
+  { name: 'Kategoriyalar', href: '/kategoriyalar', icon: Package },
+  { name: 'Ombor', href: '/ombor', icon: Settings },
+  { name: 'Mahsulotar', href: '/products', icon: Package },
   { name: 'Purchase', href: '/purchase', icon: ShoppingCart },
-  { name: 'Invoice', href: '/invoice', icon: FileText },
-  { name: 'Settings', href: '/settings', icon: Settings },
+  { name: 'Sotuv', href: '/Sotuv', icon: FileText },
 ];
 
 export default function DashboardLayout() {
@@ -58,7 +61,7 @@ export default function DashboardLayout() {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`nav-link d-flex align-items-center px-3 py-2 rounded ${location.pathname === item.href ? 'bg-primary text-white' : 'text-dark'
+                className={`nav-link d-flex align-items-center p ${location.pathname === item.href ? 'bg-primary text-white' : 'text-dark'
                   }`}
                 onClick={() => setSidebarOpen(false)}
               >
@@ -116,12 +119,12 @@ export default function DashboardLayout() {
           <Route path="/" element={<DashboardPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/users" element={<UserManagement />} />
-          <Route path="/products" element={<OmborIndex />} />
-
-          <Route path="/purchase" element={<PurchasePage />} />
-
-          <Route path="/invoice" element={<OmborHisoboti />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/birliklar" element={<Birlik />} />
+          <Route path="/kategoriyalar" element={<Categories />} />
+          <Route path="/ombor" element={<Ombor />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/purchase" element={<Purchase />} />
+          <Route path="/sotuv" element={<Sotuv />} />
           <Route path='/login' element={<Login />} />
         </Routes>
       </div>

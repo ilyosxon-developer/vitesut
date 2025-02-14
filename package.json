@@ -17,6 +17,7 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
+    "formik": "^2.4.6",
     "lucide-react": "^0.475.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
@@ -27,7 +28,9 @@
     "react-router-dom": "^7.1.5",
     "recharts": "^2.15.1",
     "recoil": "^0.7.7",
+    "sweetalert2": "^11.16.0",
     "uuid": "^11.0.5",
+    "yup": "^1.6.1",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
