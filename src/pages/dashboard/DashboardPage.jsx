@@ -183,7 +183,10 @@ import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './DashboardPage.css';
 import DashboardChart from './Charts';
-
+import UserCountCard from './user-count';
+import UnitCountCard from './count-birlik'
+import ProductCountCard from './produc-count';
+import CategoryCountCard from './catagories-count'
 const DashboardPage = () => {
   const [username, setUsername] = useState('');
 
@@ -202,18 +205,19 @@ const DashboardPage = () => {
           <h1 className="h2 text-primary">Xush kelibsiz: {username || 'Guest'}👋</h1>
           <button className="btn btn-outline-primary custom-btn">Filter by date</button>
         </header>
-
         <div className="row">
-          {['Total Sales', 'Net', 'Invoice Due', 'Total Sell Return'].map((item, index) => (
-            <div key={index} className="col-md-3 mb-4">
-              <div className="card text-center shadow-sm custom-card">
-                <div className="card-body">
-                  <h5 className="card-title text-primary">{item}</h5>
-                  <p className="card-text fw-bold text-dark">$ 0.00</p>
-                </div>
-              </div>
-            </div>
-          ))}
+          <div className="col-3">
+            <UserCountCard /> 
+          </div>
+          <div className="col-3">
+            <UnitCountCard/>  
+          </div>
+          <div className="col-3">
+            <ProductCountCard/>  
+          </div>
+          <div className="col-3">
+            <CategoryCountCard/>
+          </div>
         </div>
         <DashboardChart />
       </main>

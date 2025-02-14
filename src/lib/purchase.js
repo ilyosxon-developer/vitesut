@@ -23,18 +23,19 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// 🔹 Birliklarni olish
+// 🔹  olish
 export const fetchBirliklar = () => axiosInstance.get("purchases/");
+
 export const fetchPurchaseOmbor = () => axiosInstance.get("omborlar/");
 
-// 🔹 Yangi birlik qo‘shish
-export const createBirlik = (name) =>
+// 🔹 Yangi  qo‘shish
+export const createPurchase  = (name) =>
   axiosInstance.post("purchases/", { name });
 
-// 🔹 Birlikni o‘chirish
+// 🔹  o‘chirish
 export const deleteBirlik = (id) => axiosInstance.delete(`purchases/${id}/`);
 
-// 🔹 Birlikni tahrirlash
+// 🔹  tahrirlash
 export const updateBirlik = (id, name) =>
   axiosInstance.patch(`purchases/${id}/`, { name });
 
