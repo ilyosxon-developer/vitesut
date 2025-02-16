@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // API bazaviy URL
-const API_BASE_URL = "https://crmapimilk.pythonanywhere.com/";
+const API_BASE_URL = "https://milkbackend.pythonanywhere.com/";
 
 // Axios instance yaratish
 const axiosInstance = axios.create({

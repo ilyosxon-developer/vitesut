@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { showMessage } from "../../utilities/showMessage.js"; // Yo‘li loyihaga qarab o‘zgaradi
+
 import {
   fetchBirliklar,
   createBirlik,
@@ -31,49 +33,49 @@ function Catagoriyalar() {
         setMessage("Birliklarni olishda xatolik yuz berdi.");
       });
   };
-
-  const addBirlikHandler = () => {
+ 
+  const addBirlikHandler = () => { 
     if (!newBirlik.trim()) {
-      setMessage("Birlik nomini kiriting!");
+      showMessage(setMessage, "Catagoriya nomini kiriting!");
       return;
     }
-
+  
     createBirlik(newBirlik)
       .then((response) => {
-        setMessage("Yangi birlik qo'shildi!");
+        showMessage(setMessage, "Yangi catagoriya qo'shildi!");
         setData((prevData) => [...prevData, response.data]);
         setNewBirlik("");
         setShowModal(false);
       })
       .catch((error) => {
-        setMessage(`Xatolik: ${error.message}`);
+        showMessage(setMessage, `Xatolik: ${error.message}`);
       });
   };
-
+  
   const deleteBirlikHandler = (id) => {
     deleteBirlik(id)
       .then(() => {
-        setMessage("Birlik muvaffaqiyatli o'chirildi!");
+        showMessage(setMessage, "Catagoriya muvaffaqiyatli o'chirildi!");
         setData((prevData) => prevData.filter((birlik) => birlik.id !== id));
       })
       .catch((error) => {
-        setMessage(`Xatolik: ${error.message}`);
+        showMessage(setMessage, `Xatolik: ${error.message}`);
       });
   };
-
+  
   const startEditing = (birlik) => {
     setEditBirlik(birlik);
   };
-
+  
   const saveEdit = () => {
     if (!editBirlik.name.trim()) {
-      setMessage("Birlik nomi bo'sh bo'lishi mumkin emas!");
+      showMessage(setMessage, "Catagoriya nomi bo'sh bo'lishi mumkin emas!");
       return;
     }
-
+  
     updateBirlik(editBirlik.id, editBirlik.name)
       .then((response) => {
-        setMessage("Birlik muvaffaqiyatli tahrirlandi!");
+        showMessage(setMessage, "Catagoriya muvaffaqiyatli tahrirlandi!");
         setData((prevData) =>
           prevData.map((birlik) =>
             birlik.id === editBirlik.id ? response.data : birlik
@@ -82,9 +84,10 @@ function Catagoriyalar() {
         setEditBirlik(null);
       })
       .catch((error) => {
-        setMessage(`Xatolik: ${error.message}`);
+        showMessage(setMessage, `Xatolik: ${error.message}`);
       });
   };
+  
 
   const viewDetails = (birlik) => {
     setViewBirlik(birlik);

@@ -34,6 +34,7 @@ export default defineConfig({
       { find: '@constants', replacement: '/src/lib/constants' },
     ],
   },
+  
   optimizeDeps: {
     esbuildOptions: {
       loader: {

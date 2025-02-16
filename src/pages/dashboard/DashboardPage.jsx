@@ -187,6 +187,7 @@ import UserCountCard from './user-count';
 import UnitCountCard from './count-birlik'
 import ProductCountCard from './produc-count';
 import CategoryCountCard from './catagories-count'
+import Dashboardlog from  './log'
 const DashboardPage = () => {
   const [username, setUsername] = useState('');
 
@@ -203,7 +204,7 @@ const DashboardPage = () => {
       <main className="">
         <header className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3 border-bottom">
           <h1 className="h2 text-primary">Xush kelibsiz: {username || 'Guest'}👋</h1>
-          <button className="btn btn-outline-primary custom-btn">Filter by date</button>
+          
         </header>
         <div className="row">
           <div className="col-3">
@@ -219,6 +220,7 @@ const DashboardPage = () => {
             <CategoryCountCard/>
           </div>
         </div>
+        <Dashboardlog/>
         <DashboardChart />
       </main>
     </div>

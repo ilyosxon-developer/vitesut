@@ -3,7 +3,6 @@ import { LayoutDashboard, Users, Package, ShoppingCart, Train, FileText, Setting
 import React, { useState } from 'react';
 import DashboardPage from '../../pages/dashboard/DashboardPage';
 import Purchase from '../../pages/purchase/purchase';
-import InvoicePage from '../../pages/Invoice'
 import Birlik from '../../pages/birliklar/birlik';
 import Login from '../../pages/auth/Login';
 import Categories from '../../pages/catagories/catagories';

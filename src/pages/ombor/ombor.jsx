@@ -93,7 +93,7 @@
 
     return (
       <div className="container mt-5">
-        <h1 className="text-center mb-4">Birliklar</h1>
+        <h1 className="text-center mb-4">Omborlar</h1>
 
         {/* Xabar */}
         {message && (

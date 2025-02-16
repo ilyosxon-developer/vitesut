@@ -1,5 +1,6 @@
   // BirliklarComponentt.jsx
   import React, { useState, useEffect } from "react";
+  import { showMessage } from "../../utilities/showMessage";
   import {
     fetchBirliklar,
     createBirlik,
@@ -15,7 +16,7 @@
     const [viewBirlik, setViewBirlik] = useState(null); // Tafsilotlarni ko'rish uchun
     const [message, setMessage] = useState("");
     const [showModal, setShowModal] = useState(false);
-
+   
     useEffect(() => {
       loadBirliklar();
     }, []);
@@ -33,48 +34,45 @@
         });
     };
 
+
     const addBirlikHandler = () => {
       if (!newBirlik.trim()) {
-        setMessage("Birlik nomini kiriting!");
+        showMessage(setMessage, "Birlik nomini kiriting!");
         return;
       }
-
+    
       createBirlik(newBirlik)
         .then((response) => {
-          setMessage("Yangi birlik qo'shildi!");
+          showMessage(setMessage, "Yangi birlik qo'shildi!");
           setData((prevData) => [...prevData, response.data]);
           setNewBirlik("");
           setShowModal(false);
         })
         .catch((error) => {
-          setMessage(`Xatolik: ${error.message}`);
+          showMessage(setMessage, `Xatolik: ${error.message}`);
         });
     };
-
+    
     const deleteBirlikHandler = (id) => {
       deleteBirlik(id)
         .then(() => {
-          setMessage("Birlik muvaffaqiyatli o'chirildi!");
+          showMessage(setMessage, "Birlik muvaffaqiyatli o'chirildi!");
           setData((prevData) => prevData.filter((birlik) => birlik.id !== id));
         })
         .catch((error) => {
-          setMessage(`Xatolik: ${error.message}`);
+          showMessage(setMessage, `Xatolik: ${error.message}`);
         });
     };
-
-    const startEditing = (birlik) => {
-      setEditBirlik(birlik);
-    };
-
+    
     const saveEdit = () => {
       if (!editBirlik.name.trim()) {
-        setMessage("Birlik nomi bo'sh bo'lishi mumkin emas!");
+        showMessage(setMessage, "Birlik nomi bo'sh bo'lishi mumkin emas!");
         return;
       }
-
+    
       updateBirlik(editBirlik.id, editBirlik.name)
         .then((response) => {
-          setMessage("Birlik muvaffaqiyatli tahrirlandi!");
+          showMessage(setMessage, "Birlik muvaffaqiyatli tahrirlandi!");
           setData((prevData) =>
             prevData.map((birlik) =>
               birlik.id === editBirlik.id ? response.data : birlik
@@ -83,16 +81,22 @@
           setEditBirlik(null);
         })
         .catch((error) => {
-          setMessage(`Xatolik: ${error.message}`);
+          showMessage(setMessage, `Xatolik: ${error.message}`);
         });
     };
+    
+
+
+const startEditing = (birlik) => {
+  setEditBirlik(birlik);
+};
 
     const viewDetails = (birlik) => {
       setViewBirlik(birlik);
     };
 
     return (
-      <div className="container mt-5">
+      <div className="container">
         <h1 className="text-center mb-4">Birliklar</h1>
 
         {/* Xabar */}
