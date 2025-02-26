@@ -1,7 +1,7 @@
   // BirliklarComponentt.jsx
   import React, { useState, useEffect } from "react";
   import {
-    fetchBirliklar,
+    fetchMahsulotlar,
     createBirlik,
     deleteBirlik,
     updateBirlik,
@@ -21,7 +21,7 @@
     }, []);
 
     const loadBirliklar = () => {
-      fetchBirliklar()
+      fetchMahsulotlar()
       
         .then((response) => {
           // Backend javob formatiga qarab, masalan: response.data.results

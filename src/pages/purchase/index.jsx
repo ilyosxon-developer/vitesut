@@ -1,5 +1,7 @@
 // BirliklarComponentt.jsx
 import React, { useState, useEffect } from "react";
+import AddPurchaseForm from "./AddPurchase";
+import FormSlider from './from'
 import {
   fetchBirliklar,
   createBirliklar,
@@ -7,7 +9,7 @@ import {
   updateBirliklar,
   fetchOmborlar, // Yangi: omborlarni olish uchun API
 } from "../../lib/purchase";
-import AddPurchaseForm from "./add-purchase";
+import PurchaseAddRouter from "./PurchaseAddRouter";
 function Purchase() {
   const [data, setData] = useState([]);
   const [newPurchase, setNewPurchase] = useState({
@@ -135,20 +137,12 @@ function Purchase() {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Birliklar</h1>
-
       {message && (
         <div className="alert alert-info text-center" role="alert">
           {message}
         </div>
       )}
-
-      <div className="mb-4 text-end">
-        <button className="btn btn-success" onClick={() => setShowModal(true)}>
-          + Add
-        </button>
-      </div>
-      <AddPurchaseForm/>
+      <FormSlider/>
 
       <table className="table table-bordered table-hover">
         <thead className="table-light">

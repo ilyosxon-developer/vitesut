@@ -24,7 +24,7 @@ axiosInstance.interceptors.request.use(
 );
 
 // 🔹 Birliklarni olish
-export const fetchBirliklar = () => axiosInstance.get("mahsulotlar/");
+export const fetchMahsulotlar = () => axiosInstance.get("mahsulotlar/");
 
 // 🔹 Yangi birlik qo‘shish
 export const createBirlik = (name) =>

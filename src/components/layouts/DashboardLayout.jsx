@@ -2,7 +2,7 @@ import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom'
 import { LayoutDashboard, Users, Package, ShoppingCart, Train, FileText, Settings, LogOut, Menu } from 'lucide-react';
 import React, { useState } from 'react';
 import DashboardPage from '../../pages/dashboard/DashboardPage';
-import Purchase from '../../pages/purchase/purchase';
+import Purchase from '../../pages/purchase/index';
 import Birlik from '../../pages/birliklar/birlik';
 import Login from '../../pages/auth/Login';
 import Categories from '../../pages/catagories/catagories';
